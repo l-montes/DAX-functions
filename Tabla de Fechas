@@ -1,0 +1,13 @@
+TablaDeFechas = 
+ADDCOLUMNS (
+    CALENDAR (DATE(2000, 1, 1), DATE(2025, 12, 31)),
+    "Año", YEAR ([Date]),
+    "Mes", FORMAT ([Date], "mmmm"),
+    "Día", DAY ([Date]),
+    "AñoMes", FORMAT ([Date], "yyyy/mm"),
+    "Trimestre", "Q" & FORMAT ([Date], "q"),
+    "SemanaDelAño", WEEKNUM([Date]),
+    "DíaDeLaSemana", FORMAT ([Date], "dddd"),
+    "EsFinDeSemana", IF (WEEKDAY ([Date], 2) > 5, "Sí", "No"),
+    "EsDíaLaborable", IF (WEEKDAY ([Date], 2) > 5, "No", "Sí")
+)
