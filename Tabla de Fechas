@@ -1,13 +1,21 @@
-TablaDeFechas = 
-ADDCOLUMNS (
-    CALENDAR (DATE(2000, 1, 1), DATE(2025, 12, 31)),
-    "Año", YEAR ([Date]),
-    "Mes", FORMAT ([Date], "mmmm"),
+Fechas = 
+VAR
+    locID = "ES"
+RETURN
+ADDCOLUMNS(
+    CALENDARAUTO(),
+    "Año", YEAR([Date]),
+    "Mes", FORMAT([Date], "mmm", locID),
+    "Trimestre", FORMAT([Date], "\Tq"),
     "Día", DAY ([Date]),
-    "AñoMes", FORMAT ([Date], "yyyy/mm"),
-    "Trimestre", "Q" & FORMAT ([Date], "q"),
+    "Mes#", MONTH([Date]),
+    "Semana", if(WEEKNUM([Date]) <10, "S0", "S") & WEEKNUM([Date]),
+    "DíaDeLaSemana", FORMAT ([Date], "ddd", locID),
+    "Día#", WEEKDAY([Date],2),
+    "Año/Mes#", FORMAT([Date], "yyyymm"),
+    "Mes-Año", FORMAT([Date], "mmm", locID) & "'" & FORMAT([Date], "yy"),
+    "Mes completo", FORMAT([DATE], "mmmm", locID),
+    "Día completo", FORMAT ([Date], "dddd", locID),
     "SemanaDelAño", WEEKNUM([Date]),
-    "DíaDeLaSemana", FORMAT ([Date], "dddd"),
-    "EsFinDeSemana", IF (WEEKDAY ([Date], 2) > 5, "Sí", "No"),
-    "EsDíaLaborable", IF (WEEKDAY ([Date], 2) > 5, "No", "Sí")
+    "FinDeSemana", IF (WEEKDAY ([Date], 2) > 5, "FdS", "Lab.")
 )
